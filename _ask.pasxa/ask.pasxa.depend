@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1525545746 source:c:\users\panos\desktop\programms\c++\ask.pasxa\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<fstream>
+
+1525542825 source:c:\users\panos\desktop\programms\c++\ask.pasxa\src\peak.cpp
+	"Peak.h"
+
+1525543650 c:\users\panos\desktop\programms\c++\ask.pasxa\include\peak.h
+	<vector>
+
+1525886651 source:c:\users\panos\desktop\programms\c++\_ask.pasxa\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<fstream>
+	<stdio.h>
+	<math.h>
+	"Peak.h"
+
+1525631558 c:\users\panos\desktop\programms\c++\_ask.pasxa\include\peak.h
+	<vector>
+
+1525600809 source:c:\users\panos\desktop\programms\c++\_ask.pasxa\src\peak.cpp
+	"Peak.h"
+
