@@ -1,185 +1,114 @@
-#include <iostream>
+#include<iostream>
+#include<cstdio>
+#include<sstream>
+#include<algorithm>
 #include <fstream>
-#include <vector>
-#include <fstream>
-#include <stdio.h>
-#include <math.h>
-
-#include "Peak.h"
-#include "Arrays.h"
+#define pow2(n) (1 << (n))
+#include "avlTree.h"
+#include "avlNode.h"
 
 using namespace std;
 
-void quickSort(vector<int> &first, vector<int> &second, int left, int right) {
-//      int i = left, j = right;
-//      int tmp1,tmp2;
-//      int pivot = first[(left + right) / 2];
-//      /* partition */
-//      while (i <= j) {
-//            while (first[i] < pivot)
-//                  i++;
-//            while (first[j] > pivot)
-//                  j--;
-//            if (i <= j) {
-//                  tmp1 = first[i];
-//                  first[i] = first[j];
-//                  first[j] = tmp1;
-//
-//                  tmp2 = second[i];
-//                  second[i]=second[j];
-//                  second[j]=tmp2;
-//                  i++;
-//                  j--;
-//            }
-//      };
-//      /* recursion */
-//      if (left < j)
-//            quickSort(first, second, left, j);
-//      if (i < right)
-//            quickSort(first, second, i, right);
-}
-//sorts all the elements from the second vector that have the same value on the respective position on the first vector
-void sortBySecond(vector<int> &first,vector<int> &second)
-{
-//    int part=first[0];
-//    int start=0,finish=0;
-//    for(int i=1; i<first.size(); i++){
-//        while(first[i]==part){
-//            i++;
-//        }
-//        part=first[i];
-//        finish=i-1;
-//        quickSort(second, first, start, finish);
-//        start=i;
-//    }
-}
-//creates the IDS vector which is the final.
-void putInVectors(vector<int> &first,vector<int> &second, vector<Peak> &IDS)
-{
-//    Peak a;
-//    int part=first[0];
-//    a.x=first[0];
-//    a.Neighbors.push_back(second[0]);
-//    IDS.push_back(a);
-//    for(int i=1; i<first.size(); i++){
-//        if(first[i]!=a.x){
-//            Peak b;
-//            a.x=first[i];
-//            a.Neighbors.push_back(second[i]);
-//            b.x=first[i];
-//            b.Neighbors.push_back(second[i]);
-//            IDS.push_back(b);
-//        }
-//        else{
-//            IDS[IDS.size()-1].Neighbors.push_back(second[i]);
-//        }
-//    }
-}
-void passFromFile(vector<int> &first, vector<int> &second)
-{
-//    int value;
-//    bool decider=1;
-//    fstream myFile;
-//    myFile.open("input.txt");
-//    //myFile.open("input.txt");
-//        if(myFile){
-//            while(myFile >> value) {
-//                if(decider){
-//                    first.push_back(value);
-//                    decider=0;
-//                }
-//                else{
-//                    second.push_back(value);
-//                    decider=1;
-//                }
-//            }
-//            myFile.close();
-//        }
-//        else{
-//            cout << "Unable to open" << endl;
-//        }
-        ///////////////////////////////////////START OF ARRAYS WAY/////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////END OF ARRAYS WAY////////////////////////////////////////////////////
-}
-
 int main()
 {
-//    int value;
-//    bool decider=1;
-//    int a;
-//    vector<Peak> IDS;
-//    vector<int> first,second;
-    /*
-    fstream myFile;
-    cout << "1. Array \n2. AVL Tree \n3.Hash Table" << endl;
-    cin>>a;
+	nodeptr root,root1,min,max;//,flag;
+	int value,choice,findele,delele;
+	char ch='y';
+	avlTree bst;
 
-    myFile.open("input.txt");
-    //myFile.open("input.txt");
-    if(a==1){
-        if(myFile){
-            while(myFile >> value) {
-                if(decider){
-                    first.push_back(value);
-                    decider=0;
-                }
-                else{
-                    second.push_back(value);
-                    decider=1;
-                }
-            }
-            myFile.close();
-        }
-        else{
-            cout << "Unable to open" << endl;
-        }*/
-        ///////////////////////////////////////START OF ARRAYS WAY/////////////////////////////////////////////////////////////////////
-        Arrays a;
-        a.passFromFile();
-        a.quickSort(0, a.getFirst().size()-1);
-        a.sortBySecond();
-        a.putInIDs();
-        //Printing every Node and its Neighbors at its right
-        for(int i=0; i<a.getIDs().size(); i++){
-            cout << "Node: " << a.getIDs(i).x << "  Neighbors: " ;
-            for(int j=0; j<a.getIDs(i).Neighbors.size(); j++){
-                cout << a.getIDs(i).Neighbors[j] << " " ;
-            }
-            cout << endl;
-        }
-        ////////////////////////////////////////END OF ARRAYS WAY////////////////////////////////////////////////////
-    //}
+	//system("clear");
+	root = NULL;
+	root1=NULL;
+	cout<<"\n\t\t\t\tWELCOME TO AVL TREE"<<endl;
+	cout<<"\t\t\t\t:::::::::::::::::::\n"<<endl;
 
-    return 0;
+	do
+	{
+		cout<<"\t\t::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 1 to insert a new node::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 2 to find the minimum value:::::::::::"<<endl;
+		cout<<"\t\t::::Enter 3 to find the max value:::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 4 to search a value:::::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 5 to delete a value:::::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 6 to display Preorder:::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 7 to display Inorder::::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 8 to display Postorder::::::::::::::::"<<endl;
+		cout<<"\t\t::::Enter 9 to display the height of the tree:::"<<endl;
+		cout<<"\t\t::::Enter 0 to exit:::::::::::::::::::::::::::::"<<endl;
+		cout<<"\t\t::::::::::::::::::::::::::::::::::::::::::::::::\n"<<endl;
 
+		cout<<"\nEnter the choice: ";
+		cin>>choice;
+
+		switch(choice)
+		{
+			case 1:
+				cout<<"\n\t\tADDING NEW NODE"<<endl;
+				cout<<"\t\t:::::::::::::\n"<<endl;
+				cout<<"Enter a new value: ";
+				bst.passFromFile(root);
+                    cin>>value;
+                    bst.insert(value,root);
+
+				cout<<"\nThe new value have been added to your tree successfully\n"<<endl;
+				break;
+			case 2:
+				if (root !=NULL)
+				{
+					min=bst.findmin(root);
+					cout<<"\nThe minimum element in the tree is: "<<min->element<<endl;
+				}
+				break;
+			case 3:
+				if (root !=NULL)
+				{
+					max=bst.findmax(root);
+					cout<<"\nThe maximum element in the tree is: "<<max->element<<endl;
+				}
+				break;
+			case 4:
+				cout<<"\nEnter node to search: ";
+				cin>>findele;
+				if (root != NULL)
+				{
+					bst.find(findele,root);
+				}
+				break;
+			case 5:
+				cout<<"\nEnter node to delete: ";
+				cin>>delele;
+				bst.del(delele,root);
+				bst.inorder(root);
+				cout<<endl;
+				break;
+			case 6:
+				cout<<"\n\t\tPRE-ORDER TRAVERSAL"<<endl;
+				bst.preorder(root);
+				cout<<endl;
+				break;
+			case 7:
+				cout<<"\n\t\tIN-ORDER TRAVERSAL"<<endl;
+				bst.inorder(root);
+				cout<<endl;
+				break;
+			case 8:
+				cout<<"\n\t\tPOST ORDER TRAVERSAL"<<endl;
+				bst.postorder(root);
+				cout<<endl;
+				break;
+			case 9:
+				//cout<<"\n\t\tHEIGHT\n"<<endl;
+				cout<<"The height of the tree is: "<<bst.bsheight(root)<<endl;
+				break;
+			case 0:
+				cout<<"\n\tThank your for using AVL tree program\n"<<endl;
+				break;
+			default:
+				cout<<"Sorry! wrong input\n"<<endl;
+				break;
+		}
+		system("pause");
+		system("cls");
+	}while(choice != 0);
+	return 0;
 }
-
-/*
-vector<int> FindNeighbors(int x, vector<int> first, vector<int> second)
-{
-    vector<int> Neighbors;
-    int i,j=0;
-    int DisDeSpot;
-    for(i=0; first[i]<=x; i++){
-        if(first[i]==x){
-            Neighbors.push_back(second[i]);
-            //DisDeSpot=i;
-        }
-    }
-    /*
-    while(first[DisDeSpot]==x){
-        Neighbors.push_back(second[DisDeSpot]);
-        DisDeSpot++;
-    }
-    return Neighbors;
-}
-*/
-
-/*
-ostream &operator<<(ostream &mystream, Point3D &p)
-{
- mystream<<p.x<<", "<<p.y<<", "<<p.z<<endl;
- return mystream;
-}
-*/
