@@ -4,23 +4,24 @@
 #include <fstream>
 #include<sstream>
 #include<algorithm>
-void avlTree::passFromFile(nodeptr p)
+
+//passing values from file to avl trees
+void avlTree::passFromFile(nodeptr &p)
 {
     avlTree IDs;
-    int value;
-    bool decider=1;
+    int value,tfn;
     fstream myFile;
-    myFile.open("testinput.txt");
+    myFile.open("testtestinput.txt");
     if(myFile){
         while(myFile >> value) {
-            if(decider){
                 IDs.insert(value, p);
-                decider=0;
-            }
-            else{
-                IDs.push_back(value);
-                decider=1;
-            }
+                int parent=value;
+                myFile>>value;
+                IDs.find(parent, p)->Neighbors->insert(value,p->nero);
+//                tfn=value; // tfn = To Fill Neighbors
+//                myFile>> value;
+//                nodeptr a=IDs.find(tfn, p);
+//                a->Neighbors->insert(value, p->nr);
         }
         myFile.close();
     }
@@ -28,16 +29,40 @@ void avlTree::passFromFile(nodeptr p)
         cout << "Unable to open" << endl;
     }
 }
+//void avlTree::passToNeighbors(nodeptr &p)
+//{
+//    avlTree a;
+//    int value;
+//    fstream myFile;
+//    myFile.open("testtestinput.txt");
+//    if(myFile){
+//        while(myFile >> value) {
+//                int parent=value;
+//                myFile>>value;
+//                a.find(parent, p)->nr->Neighbors->insert(value, nr);
+////                tfn=value; // tfn = To Fill Neighbors
+////                myFile>> value;
+////                nodeptr a=IDs.find(tfn, p);
+////                a->Neighbors->insert(value, p->nr);
+//        }
+//        myFile.close();
+//    }
+//    else{
+//        cout << "Unable to open" << endl;
+//    }
+//}
 // Inserting a node
 void avlTree::insert(int x,nodeptr &p)
 {
 	if (p == NULL)
 	{
 		p = new node;
+		//p->pn = new node;
 		p->element = x;
 		p->left=NULL;
 		p->right = NULL;
 		p->height=0;
+		p->nero = new node;
 		if (p==NULL)
 		{
 			cout<<"Out of Space\n"<<endl;
@@ -123,11 +148,13 @@ nodeptr avlTree::findmax(nodeptr p)
 	}
 }
 // Finding an element
-void avlTree::find(int x,nodeptr &p)
+nodeptr avlTree::find(int x,nodeptr &p)
 {
 	if (p==NULL)
 	{
-		cout<<"Sorry! element not found\n"<<endl;
+        cout<<"Sorry! element not found\n"<<endl;
+        //cout << "Im retarded" << endl;
+        //cout << endl;
 	}
 	else
 	{
@@ -143,7 +170,8 @@ void avlTree::find(int x,nodeptr &p)
 			}
 			else
 			{
-				cout<<"Element found!\n"<<endl;
+			    return p;
+			    cout<<"Element found!\n"<<endl;
 			}
 		}
 	}
@@ -184,7 +212,6 @@ nodeptr avlTree::nodecopy(nodeptr &p)
 		return temp;
 	}
 }
-
 // Deleting a node
 void avlTree::del(int x,nodeptr &p)
 {
@@ -227,7 +254,6 @@ void avlTree::del(int x,nodeptr &p)
 		p->element = deletemin(p->right);
 	}
 }
-
 int avlTree::deletemin(nodeptr &p)
 {
 	int c;
@@ -253,18 +279,26 @@ void avlTree::preorder(nodeptr p)
 		preorder(p->right);
 	}
 }
-
 // Inorder Printing
 void avlTree::inorder(nodeptr p)
 {
 	if (p!=NULL)
 	{
 		inorder(p->left);
-		cout<<p->element<<"\t";
+		cout<<  p->element <<endl;
+
+		//cout << " Neighbors: " ;
+		//inorder(pNeighbors);
 		inorder(p->right);
 	}
 }
-
+//show Neighbors inorder
+//void avlTree::inorderNeighbors(nodeptr &p, avlTree a)
+//{
+//    a.find(tbf, p).Neighbors->inorder(a.find(tbf, p));
+//    inorder(a.find(p));
+//    cout << " Neighbors: " ;
+//}
 // PostOrder Printing
 void avlTree::postorder(nodeptr p)
 {
@@ -275,7 +309,6 @@ void avlTree::postorder(nodeptr p)
 		cout<<p->element<<"\t";
 	}
 }
-
 int avlTree::max(int value1, int value2)
 {
 	return ((value1 > value2) ? value1 : value2);
@@ -293,7 +326,6 @@ int avlTree::bsheight(nodeptr p)
 		return t;
 	}
 }
-
 nodeptr avlTree:: srl(nodeptr &p1)
 {
 	nodeptr p2;
@@ -324,7 +356,6 @@ nodeptr avlTree::drr(nodeptr &p1)
 	p1->right = srl(p1->right);
 	return srr(p1);
 }
-
 int avlTree::nonodes(nodeptr p)
 {
 	int count=0;
