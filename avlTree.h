@@ -8,24 +8,26 @@
 using namespace std;
 
 class avlTree;
-
+typedef struct node *nodeptr;
 struct node
 {
 	int element;
 	node *left;
 	node *right;
 	int height;
-    avlTree* Neighbors;
+    node *nero; //STANDS FOR Neighbors Root
+    avlTree *Neighbors;
 };
-typedef struct node *nodeptr;
+
 class avlTree
 {
 	public:
-	    void passFromFile(nodeptr);
+	    void passFromFile(nodeptr &);
+	    void passToNeighbors(nodeptr &);
 		void insert(int, nodeptr &);
 		void del(int, nodeptr &);
 		int deletemin(nodeptr &);
-		void find(int, nodeptr &);
+		nodeptr find(int, nodeptr &);
 		nodeptr findmin(nodeptr);
 		nodeptr findmax(nodeptr);
 		void makeempty(nodeptr &);
@@ -33,6 +35,7 @@ class avlTree
 		nodeptr nodecopy(nodeptr &);
 		void preorder(nodeptr);
 		void inorder(nodeptr);
+		void inorderNeighbors(nodeptr, avlTree a);
 		void postorder(nodeptr);
 		int bsheight(nodeptr);
 		nodeptr srl(nodeptr &);
@@ -41,6 +44,7 @@ class avlTree
 		nodeptr drr(nodeptr &);
 		int max(int, int);
 		int nonodes(nodeptr);
+
 };
 
 #endif // AVLTREE_H
